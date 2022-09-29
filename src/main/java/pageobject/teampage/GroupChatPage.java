@@ -1,4 +1,4 @@
-package pageobject.qa14team;
+package pageobject.teampage;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
