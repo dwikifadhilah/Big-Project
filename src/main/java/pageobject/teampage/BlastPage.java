@@ -368,5 +368,4 @@ public class BlastPage extends BasePage {
         clickElement(buttonArchive);
         clickElement(buttonConfirmArchive);
     }
-    
 }

@@ -1,4 +1,5 @@
-@Regression @GroupChat
+@Regression
+@GroupChat
 Feature: Group Chat
 
   Background: For login, select company and teams
@@ -19,6 +20,12 @@ Feature: Group Chat
     And Appear popup message "Delete group chat message success"
 
   @GC_003
+  Scenario: Verify that the name of other user is displayed during group chats
+    Given I already in group chat
+    When Another user sends a message in a group chat
+    Then I should be able to see the name of the message sender
+
+  @GC_004
   Scenario Outline: Verify user can add files/images in group chat
     Given I already in group chat
     When I attach file or image "<attach>"
@@ -29,30 +36,24 @@ Feature: Group Chat
       | files  |
       | images |
 
-  @GC_004
+  @GC_005
   Scenario: Verify that user can download shared files
     Given I already in group chat
     When I download file in group chat
     Then Successfully download file
 
-  @GC_005
+  @GC_006
   Scenario: Verify user can send emoji in group chat
     Given I already in group chat
     When I send emoji to group chat
     Then Successfully sent emoji
 
-  @GC_006
+  @GC_007
   Scenario: Verify user can delete existing emoji in group chat
     Given I already in group chat
     When I delete an existing emoji chat
     Then Emoji has been deleted "This message was deleted"
     And Appear popup message "Delete group chat message success"
-
-  @GC_007
-  Scenario: Verify that the name of the user is displayed during group chats
-    Given I already in group chat
-    When Another user sends a message in a group chat
-    Then I should be able to see the name of the message sender
 
   @GC_008
   Scenario Outline: Verify that user can share hyperlink URLs and Email

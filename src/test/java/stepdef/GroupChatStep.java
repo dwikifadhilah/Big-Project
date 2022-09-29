@@ -21,7 +21,7 @@ public class GroupChatStep {
     @Given("I already in group chat")
     public void alreadyInGroupChatPage() {
         new TeamPage(driver).selectGroupChat();
-//				Assert.assertEquals(driver.getTitle(), "Group Chat QA-14-BP-A");
+        Assert.assertEquals(groupChatPage.getPageText(), "Group Chat");
     }
     
     @When("I send message to group chat")
@@ -52,6 +52,20 @@ public class GroupChatStep {
     /**
      * GC_003
      */
+    @When("Another user sends a message in a group chat")
+    public void otherUserSendMessage() {
+    
+    }
+    
+    @Then("I should be able to see the name of the message sender")
+    public void seeOtherUserName() {
+        Assert.assertTrue(groupChatPage.otherUserNameDisplayed());
+    }
+    
+    
+    /**
+     * GC_004
+     */
     @When("I attach file or image {string}")
     public void attachFile(String attach) {
         groupChatPage.uploadFile(attach);
@@ -72,21 +86,20 @@ public class GroupChatStep {
     }
     
     /**
-     * GC_004
+     * GC_005
      */
     @When("I download file in group chat")
     public void downloadFile() {
         groupChatPage.clickDownload();
     }
     
-    //TODO: assert
     @Then("Successfully download file")
     public void successDownloadFile() {
-        Assert.assertEquals("", "");
+        Assert.assertTrue(groupChatPage.isDownloadClickable());
     }
     
     /**
-     * GC_005
+     * GC_006
      */
     @When("I send emoji to group chat")
     public void sendEmoji() {
@@ -101,7 +114,7 @@ public class GroupChatStep {
     }
     
     /**
-     * GC_006
+     * GC_007
      */
     @When("I delete an existing emoji chat")
     public void deleteEmojiChat() {
@@ -111,21 +124,6 @@ public class GroupChatStep {
     @Then("Emoji has been deleted {string}")
     public void emojiSuccessDeleted(String message) {
         Assert.assertEquals(groupChatPage.getLastDeleteMessage(), message);
-    }
-    
-    //TODO : Case 7 cari tau name dari user lain
-    
-    /**
-     * GC_007
-     */
-    @When("Another user sends a message in a group chat")
-    public void otherUserSendMessage() {
-    
-    }
-    
-    @Then("I should be able to see the name of the message sender")
-    public void seeOtherUserName() {
-        Assert.assertTrue(groupChatPage.otherUserNameDisplayed());
     }
     
     /**
