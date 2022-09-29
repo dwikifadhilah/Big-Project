@@ -2,7 +2,7 @@
 @Blast
 Feature: Blast
 
-  Background: For login
+  Background: For login, select company and teams
     Given I navigated to landing page and login with google
     When I select Sekolah QA company and choose QA-14-BP-A teams
 
@@ -34,7 +34,7 @@ Feature: Blast
     And Should see popup message "Update post successful"
 
   @BLS_005
-  Scenario: verify user can't use empty title when editing blast post
+  Scenario: Verify user can't use empty title when editing blast post
     Given I already in blast page
     When I edit blast post using empty title
     Then Should see popup message "Field parameter not complete."

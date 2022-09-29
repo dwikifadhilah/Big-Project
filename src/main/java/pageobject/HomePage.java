@@ -10,7 +10,7 @@ public class HomePage extends BasePage {
         super(driver);
     }
     
-    @FindBy(xpath = "(//div[@class='MuiBox-root css-1l6cvlp'])[2]")
+    @FindBy(xpath = "(//div[@class='MuiBox-root css-1l6cvlp'])[1]")
     private WebElement selectCompany;
     @FindBy(className = "Card_Card__2LWWW")
     private WebElement selectTeam;

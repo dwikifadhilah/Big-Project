@@ -1,5 +1,6 @@
 package pageobject.teampage;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -55,7 +56,7 @@ public class BlastPage extends BasePage {
     private WebElement buttonSaveEditComment;
     @FindBy(xpath = "(//a[@class='LinkNoDecor_Link__3DEkL'])[1]")
     private WebElement buttonReplyCommentBlast;
-    @FindBy(xpath = "//button[.='More Rich']") //button[@id='moreRich-1']/*[name()='svg']
+    @FindBy(xpath = "//button[.='More Rich']")
     private WebElement buttonMoreRich;
     @FindBy(xpath = "//button[.='Insert Image']")
     private WebElement buttonInsertImages;
@@ -339,7 +340,11 @@ public class BlastPage extends BasePage {
         clickElement(buttonEdit);
         clickElement(selectDueDateOption);
         clickElement(selectDueDateManually);
-        setTextElement(inputDueDate, dueDate);
+        String inputText = inputDueDate.getAttribute("value");
+        for (int i = 0; i < inputText.length(); i++) {
+            inputDueDate.sendKeys(Keys.BACK_SPACE);
+        }
+        inputDueDate.sendKeys(dueDate);
         clickElement(buttonSaveEditBlast);
     }
     

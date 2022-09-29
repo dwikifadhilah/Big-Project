@@ -54,14 +54,12 @@ public class GroupChatStep {
      */
     @When("Another user sends a message in a group chat")
     public void otherUserSendMessage() {
-    
     }
     
     @Then("I should be able to see the name of the message sender")
     public void seeOtherUserName() {
         Assert.assertTrue(groupChatPage.otherUserNameDisplayed());
     }
-    
     
     /**
      * GC_004
@@ -140,7 +138,6 @@ public class GroupChatStep {
     public void successSendUrlOrEmail(String type) throws InterruptedException {
         if (type.equalsIgnoreCase("email")) {
             Assert.assertEquals(groupChatPage.getHref(), "mailto:" + groupChatPage.emailData().trim());
-            
         } else {
             Assert.assertEquals(groupChatPage.getHref(), groupChatPage.urlData().trim());
         }
@@ -153,7 +150,6 @@ public class GroupChatStep {
     public void uploadFileMoreThan1GB(String type) {
         groupChatPage
               .uploadFile(type);
-        
     }
     
     @And("Have successfully uploaded files that are more than 1 GB")
@@ -164,10 +160,8 @@ public class GroupChatStep {
     /**
      * GC_0010
      */
-    //TODO: On Progress
     @When("I see last message")
     public void seeLastMessage() {
-    
     }
     
     @Then("Comment time is shown in the group chat")

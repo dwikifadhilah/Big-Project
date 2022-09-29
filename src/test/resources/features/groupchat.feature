@@ -26,7 +26,7 @@ Feature: Group Chat
     Then I should be able to see the name of the message sender
 
   @GC_004
-  Scenario Outline: Verify user can add files/images in group chat
+  Scenario Outline: Verify user can add files or images in group chat
     Given I already in group chat
     When I attach file or image "<attach>"
     Then Appear popup message "Upload attachments is success"

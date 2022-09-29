@@ -48,14 +48,7 @@ public class BasePage {
     
     protected void setTextElement(WebElement webElement, String text) {
         waitVisibilityElement(webElement);
-        String inputText = webElement.getAttribute("value");
-        if (!inputText.equals("")) {
-            for (int i = 0; i < inputText.length(); i++) {
-                webElement.sendKeys(Keys.BACK_SPACE);
-            }
-        } else {
-            webElement.clear();
-        }
+        webElement.clear();
         webElement.sendKeys(text);
     }
     

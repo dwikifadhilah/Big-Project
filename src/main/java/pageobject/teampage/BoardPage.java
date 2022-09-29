@@ -1,4 +1,11 @@
 package pageobject.teampage;
 
-public class BoardPage {
+import org.openqa.selenium.WebDriver;
+import pageobject.BasePage;
+
+public class BoardPage extends BasePage {
+    public BoardPage(WebDriver driver) {
+        super(driver);
+    }
+    
 }
