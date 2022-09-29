@@ -8,6 +8,8 @@ import org.testng.Assert;
 import pageobject.qa14team.BlastPage;
 import pageobject.qa14team.TeamPage;
 
+import java.text.ParseException;
+
 import static stepdef.Hook.driver;
 
 public class BlastStep {
@@ -18,15 +20,13 @@ public class BlastStep {
 		 */
 		@Given("I already in blast page")
 		public void alreadyInBlastPage() {
-				new TeamPage(driver)
-							.selectBlast();
+				new TeamPage(driver).selectBlast();
 				Assert.assertEquals(driver.getTitle(), "Blast!");
 		}
 		
 		@When("I create new blast post")
 		public void createNewBlast() {
-				blastPage
-							.createNewBlastPost();
+				blastPage.createNewBlastPost();
 		}
 		
 		@Then("Successfully create new blast")
@@ -36,7 +36,9 @@ public class BlastStep {
 		
 		@And("Should see popup message {string}")
 		public void shouldSeePopUp(String message) {
-				Assert.assertEquals(blastPage.getPopUpMessage(), message);
+				if (!message.contentEquals("IGNORED")) {
+						Assert.assertEquals(blastPage.getPopUpMessage(), message);
+				}
 		}
 		
 		/**
@@ -57,8 +59,6 @@ public class BlastStep {
 		
 		@And("Hover mouse to the lock icon will appear {string}")
 		public void hoverToLockIcon(String message) {
-				blastPage
-							.hoverLockIcon();
 				Assert.assertEquals(blastPage.getLockIconMessage(), message);
 		}
 		
@@ -67,8 +67,7 @@ public class BlastStep {
 		 */
 		@When("I edit existing blast post")
 		public void editBlastPost() {
-				blastPage
-							.editBlastTitleAndDesc();
+				blastPage.editBlastTitleAndDesc();
 		}
 		
 		@Then("Successfully edit blast")
@@ -154,7 +153,6 @@ public class BlastStep {
 		
 		@Then("Successfully upload {string} on blast comment")
 		public void successUploadFilesOnBlast(String upload) {
-				
 				if (upload.equalsIgnoreCase("files")) {
 						Assert.assertEquals(blastPage.getFileTitle(), "file.zip");
 						
@@ -164,5 +162,44 @@ public class BlastStep {
 				} else if (upload.equalsIgnoreCase("1 GB file size")) {
 						Assert.assertEquals(blastPage.getErrorUploadMessage(), "Something went wrong. Please try again.");
 				}
+		}
+		
+		/**
+		 * BLS_012
+		 */
+		@When("I edit blast and set due date manually {string}")
+		public void editBlastAndSetDueDateManually(String dueDate) {
+				blastPage.editDueDateManually(dueDate);
+		}
+		
+		@And("Blast posts should have an access time until {string}")
+		public void shouldSeeDateAccessBlast(String actualDate) {
+				Assert.assertEquals(blastPage.getDateAccessBlast(), actualDate);
+		}
+		
+		/**
+		 * BLS_013
+		 */
+		@When("I set blast post as complete")
+		public void setBlastAsComplete() {
+				blastPage.setBlastAsComplete();
+		}
+		
+		@And("Blast posts should shown the completion date")
+		public void shouldShownTheCompletionDate() throws ParseException, InterruptedException {
+				Assert.assertEquals(blastPage.getDateAccessBlast(), blastPage.dateToday());
+		}
+		
+		/**
+		 * BLS_014
+		 */
+		@When("I archive blast post")
+		public void archiveBlastPost() {
+				blastPage.archiveBlastPost();
+		}
+		
+		@Then("Successfully archived blast {string}")
+		public void successArchivedBlastPost(String archivedBlastMessage) {
+				Assert.assertEquals(blastPage.getMessageArchivedBlast(), archivedBlastMessage);
 		}
 }

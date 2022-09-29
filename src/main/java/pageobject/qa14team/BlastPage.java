@@ -1,12 +1,14 @@
 package pageobject.qa14team;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pageobject.BasePage;
 import testdata.BlastData;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class BlastPage extends BasePage {
 		private final BlastData blastData;
@@ -16,6 +18,9 @@ public class BlastPage extends BasePage {
 				blastData = new BlastData();
 		}
 		
+		/**
+		 * Button Element
+		 */
 		@FindBy(className = "BottomNavBar_bottomBar__globalActionSection__1JLBX")
 		private WebElement buttonCreateBlast;
 		@FindBy(xpath = "//div[@class='CreateBlastPage_actionSection__11uaD']/button")
@@ -30,6 +35,8 @@ public class BlastPage extends BasePage {
 		private WebElement buttonEdit;
 		@FindBy(xpath = "//div[@class='Basic_container__UtC8A']/div[2]")
 		private WebElement buttonArchive;
+		@FindBy(xpath = "//button[.='Archive']")
+		private WebElement buttonConfirmArchive;
 		@FindBy(css = ".MuiSwitch-switchBase")
 		private WebElement buttonSwitchPrivate;
 		@FindBy(xpath = "//div[@class='EditBlastPostPage_actionSection__PoC_O']/button")
@@ -48,13 +55,24 @@ public class BlastPage extends BasePage {
 		private WebElement buttonSaveEditComment;
 		@FindBy(xpath = "(//a[@class='LinkNoDecor_Link__3DEkL'])[1]")
 		private WebElement buttonReplyCommentBlast;
-		@FindBy(xpath = "//button[@id='moreRich-21']/*[name()='svg']")
+		@FindBy(xpath = "//button[.='More Rich']") //button[@id='moreRich-1']/*[name()='svg']
 		private WebElement buttonMoreRich;
-		@FindBy(id = "insertImage-20")
+		@FindBy(xpath = "//button[.='Insert Image']")
 		private WebElement buttonInsertImages;
-		@FindBy(id = "insertImage-20")
+		@FindBy(xpath = "//button[.='Upload File']")
 		private WebElement buttonInsertFile;
+		@FindBy(xpath = "//div[@class='fr-action-buttons fr-indeterminate']/button[@class='fr-command fr-dismiss']")
+		private WebElement buttonOkErrorUpload;
+		@FindBy(css = ".MuiSelect-select")
+		private WebElement selectDueDateOption;
+		@FindBy(xpath = "//li[@data-value='manual']")
+		private WebElement selectDueDateManually;
+		@FindBy(className = "SubAction_container__ejtbG")
+		private WebElement overlayButton;
 		
+		/**
+		 * Input Element
+		 */
 		@FindBy(xpath = "//div[@class='CreateBlastPage_inputTitleSection__3vhfz']/textarea")
 		private WebElement inputBlastTitle;
 		@FindBy(className = "fr-element")
@@ -65,11 +83,16 @@ public class BlastPage extends BasePage {
 		private WebElement inputCheers;
 		@FindBy(className = "fr-element")
 		private WebElement inputComment;
-		@FindBy(xpath = "(//div[@class='fr-form']/input)[3]")
+		@FindBy(xpath = "//div[@class='fr-image-upload-layer fr-active fr-layer']//input[1]")
 		private WebElement inputImagesComment;
-		@FindBy(xpath = "(//div[@class='fr-form']/input)[2]")
+		@FindBy(xpath = "//input[@name='file']")
 		private WebElement inputFileComment;
+		@FindBy(xpath = "//input[@class='MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd css-mnn31']")
+		private WebElement inputDueDate;
 		
+		/**
+		 * Getter Element
+		 */
 		@FindBy(xpath = "(//div[@class='fr-view']/p/img)[1]")
 		private WebElement imagesIsDisplayed;
 		@FindBy(id = "notistack-snackbar")
@@ -90,16 +113,12 @@ public class BlastPage extends BasePage {
 		private WebElement getLastReply;
 		@FindBy(xpath = "(//a[@class='fr-file'])[1]")
 		private WebElement getLastFileName;
-		@FindBy(css = ".fr-message")
+		@FindBy(xpath = "//div[@class='fr-file-progress-bar-layer fr-layer fr-active fr-error']/h3")
 		private WebElement getErrorUploadMessage;
-		
-		public String setTitleBlast() {
-				return blastData.getBlastTitle();
-		}
-		
-		public String setDescBlast() {
-				return blastData.getBlastDesc();
-		}
+		@FindBy(xpath = "(//div[@class='PostBlastPage_dateCreatorSection__38EqM']//p)[2]")
+		private WebElement getDateAccessBlast;
+		@FindBy(xpath = "//div[@class='PostBlastPage_archivedSection__3cJxy']//h1")
+		private WebElement getArchiveMessage;
 		
 		public String setCheers() {
 				return blastData.getCheers();
@@ -109,11 +128,16 @@ public class BlastPage extends BasePage {
 				return blastData.getComment();
 		}
 		
-		public void createNewBlastPost() {
-				clickElement(buttonCreateBlast);
-				setTextElement(inputBlastTitle, setTitleBlast());
-				setTextElement(inputBlastDesc, setDescBlast());
-				clickElement(buttonPublishBlast);
+		public String setDescBlast() {
+				return blastData.getBlastDesc();
+		}
+		
+		public String setTitleBlast() {
+				return blastData.getBlastTitle();
+		}
+		
+		public String getFileTitle() {
+				return getTextElement(getLastFileName);
 		}
 		
 		public String getPopUpMessage() {
@@ -124,6 +148,52 @@ public class BlastPage extends BasePage {
 				return getTextElement(getLastTitleBlast);
 		}
 		
+		public String getDateAccessBlast() {
+				return getTextElement(getDateAccessBlast);
+		}
+		
+		public String getEditedBlastTitle() {
+				return getTextElement(getEditedBlastTitle);
+		}
+		
+		public String getMessageArchivedBlast() {
+				return getTextElement(getArchiveMessage);
+		}
+		
+		
+		public String getLockIconMessage() {
+				clickElement(lockIconPrivateBlast);
+				return getTextElement(getHoveredTextPrivateOnly);
+		}
+		
+		public String getCheers() throws InterruptedException {
+				Thread.sleep(1500);
+				return getTextElement(getLastCheers);
+		}
+		
+		public String getComment() throws InterruptedException {
+				Thread.sleep(1500);
+				return getTextElement(getLastComment);
+		}
+		
+		public String getReply() throws InterruptedException {
+				Thread.sleep(1500);
+				return getTextElement(getLastReply);
+		}
+		
+		/**
+		 * BLS_001
+		 */
+		public void createNewBlastPost() {
+				clickElement(buttonCreateBlast);
+				setTextElement(inputBlastTitle, setTitleBlast());
+				setTextElement(inputBlastDesc, setDescBlast());
+				clickElement(buttonPublishBlast);
+		}
+		
+		/**
+		 * BLS_002
+		 */
 		public void createBlastUsingEmptyTitle() {
 				clickElement(buttonCreateBlast);
 				setTextElement(inputBlastTitle, "");
@@ -131,6 +201,9 @@ public class BlastPage extends BasePage {
 				clickElement(buttonPublishBlast);
 		}
 		
+		/**
+		 * BLS_003
+		 */
 		public void editBlastPrivateOnly() {
 				clickElement(selectLastBlast);
 				clickElement(buttonOptionBlast);
@@ -139,14 +212,9 @@ public class BlastPage extends BasePage {
 				clickElement(buttonSaveEditBlast);
 		}
 		
-		public void hoverLockIcon() {
-				clickElement(lockIconPrivateBlast);
-		}
-		
-		public String getLockIconMessage() {
-				return getTextElement(getHoveredTextPrivateOnly);
-		}
-		
+		/**
+		 * BLS_004
+		 */
 		public void editBlastTitleAndDesc() {
 				clickElement(selectLastBlast);
 				clickElement(buttonOptionBlast);
@@ -156,10 +224,9 @@ public class BlastPage extends BasePage {
 				clickElement(buttonSaveEditBlast);
 		}
 		
-		public String getEditedBlastTitle() {
-				return getTextElement(getEditedBlastTitle);
-		}
-		
+		/**
+		 * BLS_005
+		 */
 		public void editBlastUsingEmptyTitle() {
 				clickElement(selectLastBlast);
 				clickElement(buttonOptionBlast);
@@ -169,6 +236,9 @@ public class BlastPage extends BasePage {
 				clickElement(buttonSaveEditBlast);
 		}
 		
+		/**
+		 * BLS_006
+		 */
 		public void sendCheers() {
 				clickElement(selectLastBlast);
 				clickElement(buttonCheers);
@@ -176,11 +246,9 @@ public class BlastPage extends BasePage {
 				clickElement(buttonSubmitCheers);
 		}
 		
-		public String getCheers() throws InterruptedException {
-				Thread.sleep(1500);
-				return getTextElement(getLastCheers);
-		}
-		
+		/**
+		 * BLS_007
+		 */
 		public void sendEmptyCheers() {
 				clickElement(selectLastBlast);
 				clickElement(buttonCheers);
@@ -188,6 +256,9 @@ public class BlastPage extends BasePage {
 				clickElement(buttonSubmitCheers);
 		}
 		
+		/**
+		 * BLS_008
+		 */
 		public void commentOnBlast() {
 				clickElement(selectLastBlast);
 				clickElement(commentField);
@@ -195,11 +266,9 @@ public class BlastPage extends BasePage {
 				clickElement(buttonPostComment);
 		}
 		
-		public String getComment() throws InterruptedException {
-				Thread.sleep(1500);
-				return getTextElement(getLastComment);
-		}
-		
+		/**
+		 * BLS_009
+		 */
 		public void editCommentOnBlast() {
 				clickElement(selectLastBlast);
 				clickElement(buttonOptionComment);
@@ -208,6 +277,9 @@ public class BlastPage extends BasePage {
 				clickElement(buttonSaveEditComment);
 		}
 		
+		/**
+		 * BLS_010
+		 */
 		public void replyCommentOnBlast() {
 				clickElement(selectLastBlast);
 				clickElement(buttonReplyCommentBlast);
@@ -216,49 +288,85 @@ public class BlastPage extends BasePage {
 				clickElement(buttonPostComment);
 		}
 		
-		public String getReply() throws InterruptedException {
-				Thread.sleep(1500);
-				return getTextElement(getLastReply);
-		}
-		
+		/**
+		 * BLS_011
+		 */
 		public void uploadFile(String text) throws InterruptedException {
 				
 				clickElement(selectLastBlast);
 				clickElement(commentField);
-				Thread.sleep(1000);
 				clickElement(buttonMoreRich);
 				
 				if (text.equalsIgnoreCase("files")) {
 						
 						clickElement(buttonInsertFile);
-						setTextElement(inputFileComment,
-									"D:\\file.zip");
+						inputFileComment.sendKeys("D:\\file.zip");
+						
+						Thread.sleep(3000);
+						clickElement(buttonPostComment);
 						
 				} else if (text.equalsIgnoreCase("images")) {
 						
 						clickElement(buttonInsertImages);
-						setTextElement(inputImagesComment,
-									"D:\\images.png");
+						inputImagesComment.sendKeys("D:\\images.png");
+						
+						Thread.sleep(3000);
+						clickElement(buttonPostComment);
 						
 				} else if (text.equalsIgnoreCase("1 GB file size")) {
 						
 						clickElement(buttonInsertFile);
-						setTextElement(inputFileComment,
-									"D:\\Size 1 GB.zip");
+						inputFileComment.sendKeys("D:\\Size 1 GB.zip");
 				}
-				Thread.sleep(3000);
-				clickElement(buttonPostComment);
 		}
 		
 		public boolean imagesIsDisplayed() {
 				return isElementDisplayed(imagesIsDisplayed);
 		}
 		
-		public String getFileTitle() {
-				return getTextElement(getLastFileName);
+		public String getErrorUploadMessage() {
+				String errorMessage = getTextElement(getErrorUploadMessage);
+				clickElement(buttonOkErrorUpload);
+				return errorMessage;
 		}
 		
-		public String getErrorUploadMessage() {
-				return getTextElement(getErrorUploadMessage);
+		/**
+		 * BLS_012
+		 */
+		public void editDueDateManually(String dueDate) {
+				clickElement(selectLastBlast);
+				clickElement(buttonOptionBlast);
+				clickElement(buttonEdit);
+				clickElement(selectDueDateOption);
+				clickElement(selectDueDateManually);
+				setTextElement(inputDueDate, dueDate);
+				clickElement(buttonSaveEditBlast);
 		}
+		
+		/**
+		 * BLS_013
+		 */
+		public void setBlastAsComplete() {
+				clickElement(selectLastBlast);
+				clickElement(overlayButton);
+		}
+		
+		public String dateToday() throws ParseException, InterruptedException {
+				Thread.sleep(1500);
+				Date dt1 = new SimpleDateFormat("yyyy-MM-dd").parse(java.time.LocalDate.now().toString());
+				SimpleDateFormat dt2 = new SimpleDateFormat("MMM dd");
+				
+				return dt2.format(dt1);
+		}
+		
+		/**
+		 * BLS_014
+		 */
+		public void archiveBlastPost() {
+				clickElement(selectLastBlast);
+				clickElement(buttonOptionBlast);
+				clickElement(buttonArchive);
+				clickElement(buttonConfirmArchive);
+		}
+		
 }

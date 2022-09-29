@@ -20,8 +20,8 @@ public class BasePage {
 		protected void waitToBeClickable(WebElement webElement) {
 				try {
 						wait.until(ExpectedConditions.elementToBeClickable(webElement));
-				} catch (TimeoutException e){
-						System.out.println(e);
+				} catch (TimeoutException e) {
+						e.printStackTrace();
 				}
 		}
 		
@@ -48,7 +48,14 @@ public class BasePage {
 		
 		protected void setTextElement(WebElement webElement, String text) {
 				waitVisibilityElement(webElement);
-				webElement.clear();
+				String inputText = webElement.getAttribute("value");
+				if (!inputText.equals("")) {
+						for (int i = 0; i < inputText.length(); i++) {
+								webElement.sendKeys(Keys.BACK_SPACE);
+						}
+				} else {
+						webElement.clear();
+				}
 				webElement.sendKeys(text);
 		}
 		

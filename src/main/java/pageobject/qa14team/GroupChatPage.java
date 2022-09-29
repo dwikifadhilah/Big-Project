@@ -16,11 +16,17 @@ public class GroupChatPage extends BasePage {
 				data = new MessageData();
 		}
 		
+		/**
+		 * Input Element
+		 */
 		@FindBy(xpath = "//div[@class='fr-element fr-view']")
 		private WebElement inputMessage;
 		@FindBy(xpath = "//div[@class='AttachFileContainer_container__3U9Wh']/input[1]")
 		private WebElement inputUploadFile;
 		
+		/**
+		 * Button Element
+		 */
 		@FindBy(className = "CreateMessage_send__2f1ZQ")
 		private WebElement buttonSendMessage;
 		@FindBy(xpath = "(//div[@class='Message_iconOption__3F-Ru'])[1]")
@@ -32,6 +38,9 @@ public class GroupChatPage extends BasePage {
 		@FindBy(xpath = "(//div[@class='Message_attachment__title__2UFxF']/a)[1]")
 		private WebElement buttonDownload;
 		
+		/**
+		 * Getter Element
+		 */
 		@FindBy(xpath = "(//div[@class='fr-view']/p)[1]")
 		private WebElement getLastMessage;
 		@FindBy(xpath = "(//div[@class='Message_content__21YIN']/i)[1]")
@@ -47,10 +56,43 @@ public class GroupChatPage extends BasePage {
 		@FindBy(xpath = "(//div[@class='DateBox_DateBox__3UL8M DateBox_noClick__249-u'])[1]")
 		private WebElement getLastMessageTime;
 		
+		public String urlData() {
+				return data.getUrl();
+		}
+		
+		public String emailData() {
+				return data.getEmail();
+		}
+		
 		public String messageData() {
 				return data.getMessage();
 		}
 		
+		public String getFileTitle() {
+				return getTextElement(getLastFileTitle);
+		}
+		
+		public String getPopUpMessage() {
+				return getTextElement(getPopUpMessage);
+		}
+		
+		public String getLastDeleteMessage() {
+				return getTextElement(getLastDeleteMsg);
+		}
+		
+		public String getLastMessage() throws InterruptedException {
+				Thread.sleep(2000);
+				return getTextElement(getLastMessage);
+		}
+		
+		public String getHref() throws InterruptedException {
+				Thread.sleep(2000);
+				return getLastHyperLinkChat.getAttribute("href");
+		}
+		
+		/**
+		 * GC_001
+		 */
 		public GroupChatPage inputMessage() {
 				setTextElement(inputMessage, messageData());
 				return this;
@@ -60,11 +102,9 @@ public class GroupChatPage extends BasePage {
 				clickElement(buttonSendMessage);
 		}
 		
-		public String getLastMessage() throws InterruptedException {
-				Thread.sleep(2000);
-				return getTextElement(getLastMessage);
-		}
-		
+		/**
+		 * GC_002
+		 */
 		public void deleteMessage() {
 				clickElement(getLastMessage);
 				clickElement(buttonMessageOption);
@@ -72,10 +112,9 @@ public class GroupChatPage extends BasePage {
 				clickElement(buttonConfirmDelete);
 		}
 		
-		public String getLastDeleteMessage() {
-				return getTextElement(getLastDeleteMsg);
-		}
-		
+		/**
+		 * GC_003
+		 */
 		public void uploadFile(String text) {
 				By uploadFile = By.xpath("//div[@class='AttachFileContainer_container__3U9Wh']/input[1]");
 				waitPresenceOfElement(uploadFile);
@@ -99,35 +138,31 @@ public class GroupChatPage extends BasePage {
 				}
 		}
 		
-		public String getPopUpMessage() {
-				return getTextElement(getPopUpMessage);
-		}
-		
-		public String getFileTitle() {
-				return getTextElement(getLastFileTitle);
-		}
-		
+		/**
+		 * GC_004
+		 */
 		public void clickDownload() {
 				clickElement(buttonDownload);
 		}
 		
+		/**
+		 * GC_005
+		 */
 		public GroupChatPage inputEmoji() {
 				setTextElement(inputMessage, data.getEmoji());
 				return this;
 		}
 		
+		/**
+		 * GC_007
+		 */
 		public boolean otherUserNameDisplayed() {
 				return isElementDisplayed(getLastUserName);
 		}
 		
-		public String urlData() {
-				return data.getUrl();
-		}
-		
-		public String emailData() {
-				return data.getEmail();
-		}
-		
+		/**
+		 * GC_008
+		 */
 		public GroupChatPage sendUrlOrEmail(String type) {
 				if (type.equalsIgnoreCase("email")) {
 						setTextElement(inputMessage, emailData());
@@ -137,12 +172,10 @@ public class GroupChatPage extends BasePage {
 				return this;
 		}
 		
-		public String getHref() throws InterruptedException {
-				Thread.sleep(2000);
-				return getLastHyperLinkChat.getAttribute("href");
-		}
-		
-		public boolean lastMessageTimeIsDisplayed(){
+		/**
+		 * GC_010
+		 */
+		public boolean lastMessageTimeIsDisplayed() {
 				return isElementDisplayed(getLastMessageTime);
 		}
 }

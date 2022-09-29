@@ -12,7 +12,6 @@ import testdata.MessageData;
 import static stepdef.Hook.driver;
 
 public class GroupChatStep {
-		
 		private final GroupChatPage groupChatPage = new GroupChatPage(driver);
 		private final MessageData data = new MessageData();
 		
@@ -21,8 +20,7 @@ public class GroupChatStep {
 		 */
 		@Given("I already in group chat")
 		public void alreadyInGroupChatPage() {
-				new TeamPage(driver)
-							.selectGroupChat();
+				new TeamPage(driver).selectGroupChat();
 //				Assert.assertEquals(driver.getTitle(), "Group Chat QA-14-BP-A");
 		}
 		
@@ -43,8 +41,7 @@ public class GroupChatStep {
 		 */
 		@When("I delete an existing chat message")
 		public void deleteChat() {
-				groupChatPage
-							.deleteMessage();
+				groupChatPage.deleteMessage();
 		}
 		
 		@Then("the deleted message changed to {string}")
@@ -57,8 +54,7 @@ public class GroupChatStep {
 		 */
 		@When("I attach file or image {string}")
 		public void attachFile(String attach) {
-				groupChatPage
-							.uploadFile(attach);
+				groupChatPage.uploadFile(attach);
 		}
 		
 		@Then("Appear popup message {string}")
@@ -109,8 +105,7 @@ public class GroupChatStep {
 		 */
 		@When("I delete an existing emoji chat")
 		public void deleteEmojiChat() {
-				groupChatPage
-							.deleteMessage();
+				groupChatPage.deleteMessage();
 		}
 		
 		@Then("Emoji has been deleted {string}")
