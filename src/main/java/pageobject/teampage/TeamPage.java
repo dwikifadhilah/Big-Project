@@ -16,6 +16,8 @@ public class TeamPage extends BasePage {
     private WebElement selectBlast;
     @FindBy(xpath = "(//div[@class='BoxMenu_container__1flgD'])[4]")
     private WebElement selectBoard;
+    @FindBy(xpath = "//div[@class='OverviewOptionButton_container__M-oKs']//p")
+    private WebElement verifyTeamPage;
     
     public void selectGroupChat() {
         clickElement(selectGroupChat);
@@ -28,4 +30,9 @@ public class TeamPage extends BasePage {
     public void selectBoard() {
         clickElement(selectBoard);
     }
+    
+    public String getFeatureTitle() {
+        return getTextElement(verifyTeamPage);
+    }
 }
+

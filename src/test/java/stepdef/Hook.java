@@ -8,7 +8,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import pageobject.HomePage;
+import pageobject.teampage.TeamPage;
 
 import java.time.Duration;
 
@@ -29,6 +31,7 @@ public class Hook {
         new HomePage(driver)
               .selectCompany()
               .selectTeam();
+        Assert.assertEquals(new TeamPage(driver).getFeatureTitle(), "Overview");
     }
     
     @Before
