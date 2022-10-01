@@ -1,9 +1,11 @@
 package pageobject.teampage;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobject.BasePage;
 import testdata.BlastData;
 
@@ -58,9 +60,9 @@ public class BlastPage extends BasePage {
     private WebElement buttonReplyCommentBlast;
     @FindBy(xpath = "//button[.='More Rich']")
     private WebElement buttonMoreRich;
-    @FindBy(xpath = "//button[.='Insert Image']")
+    @FindBy(xpath = "//button[.='Insert Image']/*[name()='svg']")
     private WebElement buttonInsertImages;
-    @FindBy(xpath = "//button[.='Upload File']")
+    @FindBy(xpath = "//button[.='Upload File']/*[name()='svg']")
     private WebElement buttonInsertFile;
     @FindBy(xpath = "//div[@class='fr-action-buttons fr-indeterminate']/button[@class='fr-command fr-dismiss']")
     private WebElement buttonOkErrorUpload;
@@ -311,11 +313,12 @@ public class BlastPage extends BasePage {
             clickElement(buttonInsertImages);
             inputImagesComment.sendKeys("D:\\images.png");
             
-            Thread.sleep(3000);
+            Thread.sleep(7000);
             clickElement(buttonPostComment);
             
         } else if (text.equalsIgnoreCase("1 GB file size")) {
             
+            Thread.sleep(2000);
             clickElement(buttonInsertFile);
             inputFileComment.sendKeys("D:\\Size 1 GB.zip");
         }

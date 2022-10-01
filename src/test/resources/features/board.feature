@@ -1,4 +1,3 @@
-@Regression
 @Board
 Feature: Board
 
@@ -32,12 +31,12 @@ Feature: Board
     When I add card in list using empty name card
     Then Should see popup message "Card name cannot be empty"
 
-  @BRD_005
-  Scenario: Verify user can move list order using drag and drop
-    Given I already in board
-    When I move the list order using drag
-    Then Should see popup message "Reorder list is success"
-    And Successfully moved the list
+#  @BRD_005
+#  Scenario: Verify user can move list order using drag and drop
+#    Given I already in board
+#    When I move the list order using drag
+#    Then Should see popup message "Reorder list is success"
+#    And Successfully moved the list
 
   @BRD_006
   Scenario: Verify user can drag card and drop to another list
@@ -90,4 +89,4 @@ Feature: Board
   Scenario: Verify user can archive list
     Given I already in board
     When I archive list in board
-    Then Should see popup message "list 3 list has been moved to archived"
+    Then Should see popup message "Test list has been moved to archived"

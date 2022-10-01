@@ -19,6 +19,7 @@ public class BasePage {
     
     protected void waitToBeClickable(WebElement webElement) {
         try {
+            waitVisibilityElement(webElement);
             wait.until(ExpectedConditions.elementToBeClickable(webElement));
         } catch (TimeoutException e) {
             e.printStackTrace();
@@ -27,6 +28,10 @@ public class BasePage {
     
     protected void waitVisibilityElement(WebElement webElement) {
         wait.until(ExpectedConditions.visibilityOf(webElement));
+    }
+    
+    protected void waitInvisibilityLocator(By by) {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
     
     protected void waitPresenceOfElement(By by) {
