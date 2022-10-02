@@ -30,10 +30,6 @@ public class BasePage {
         wait.until(ExpectedConditions.visibilityOf(webElement));
     }
     
-    protected void waitInvisibilityLocator(By by) {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
-    }
-    
     protected void waitPresenceOfElement(By by) {
         wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
@@ -60,5 +56,9 @@ public class BasePage {
     protected String getTextElement(WebElement webElement) {
         waitVisibilityElement(webElement);
         return webElement.getText();
+    }
+    
+    public void waitUntilEditable(WebElement webElement){
+        wait.until(ExpectedConditions.attributeContains(webElement, "contenteditable", "true"));
     }
 }
