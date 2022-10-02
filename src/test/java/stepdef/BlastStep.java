@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
 import pageobject.teampage.BlastPage;
+import pageobject.teampage.BoardPage;
 import pageobject.teampage.TeamPage;
 
 import java.text.ParseException;
@@ -36,7 +37,14 @@ public class BlastStep {
     
     @And("Should see popup message {string}")
     public void shouldSeePopUp(String message) {
-        if (!message.contentEquals("IGNORED")) {
+        BoardPage board = new BoardPage(driver);
+        if (message.contentEquals("IGNORED")) {
+            return;
+        } else if (message.contains("list has been moved")) {
+            Assert.assertEquals(blastPage.getPopUpMessage(), board.expectedListName() + " " + message);
+        } else if (message.contains("card has been moved")) {
+            Assert.assertEquals(blastPage.getPopUpMessage(), board.expectedCardName() + " " + message);
+        } else {
             Assert.assertEquals(blastPage.getPopUpMessage(), message);
         }
     }
