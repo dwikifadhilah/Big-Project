@@ -23,12 +23,12 @@ public class BoardStep {
     
     @When("I add new list")
     public void addNewList() {
-        board.addNewList("Test");
+        board.addNewList();
     }
     
     @And("List has been added")
     public void listHasAdded() {
-        Assert.assertEquals(board.getLastListName(), "Test");
+        Assert.assertEquals(board.getLastListName(), board.expectedListName());
     }
     
     /**
@@ -36,7 +36,7 @@ public class BoardStep {
      */
     @When("I add list using empty list name")
     public void addNewListEmptyName() {
-        board.addNewList("");
+        board.addNewList();
     }
     
     /**
@@ -44,12 +44,12 @@ public class BoardStep {
      */
     @When("I add card in list")
     public void addCard() {
-        board.addCard("Card Dwiki");
+        board.addCard();
     }
     
     @And("Card has been added")
     public void cardHasBeenAdded() {
-        Assert.assertEquals(board.getCardName(), "Card Dwiki");
+        Assert.assertEquals(board.getCardName(), board.expectedCardName());
     }
     
     /**
@@ -57,52 +57,24 @@ public class BoardStep {
      */
     @When("I add card in list using empty name card")
     public void addCardUsingEmptyName() {
-        board.addCard("");
+        board.addCardEmptyName();
     }
-    
-    //TODO:Drag And Drop
     
     /**
      * BRD_005
-     */
-    @When("I move the list order using drag")
-    public void moveListOrderUsingDragAndDrop() throws Throwable {
-        board.dragAndDropList();
-    }
-    
-    @And("Successfully moved the list")
-    public void successMovedTheList() {
-    
-    }
-    
-    /**
-     * BRD_006
-     */
-    @When("I move card to another list by drag")
-    public void moveCardByDrag() {
-    
-    }
-    
-    @And("Successfully moved the card")
-    public void successMovedCard() {
-    
-    }
-    
-    /**
-     * BRD_007
      */
     @When("I set the list as complete")
     public void setListAsComplete() {
         board.setListAsComplete();
     }
     
-    @And("Completed icon appear {string}")
+    @And("Icon appear {string}")
     public void completedIconAppear(String message) {
         Assert.assertEquals(board.getCompletedIcon(), message);
     }
     
     /**
-     * BRD_008
+     * BRD_006
      */
     @When("I set the list type as blocked")
     public void setListTypeAsBlocked() {
@@ -110,15 +82,7 @@ public class BoardStep {
     }
     
     /**
-     * BRD_009
-     */
-    @When("I restore cards from archived items")
-    public void restoreCardFromArchivedItems() {
-    
-    }
-    
-    /**
-     * BRD_012
+     * BRD_007
      */
     @When("I archive card in board")
     public void archiveCardInBoard() {
@@ -126,10 +90,27 @@ public class BoardStep {
     }
     
     /**
-     * BRD_013
+     * BRD_008
      */
     @When("I archive list in board")
     public void archiveListInBoard() {
         board.archiveList();
     }
+    
+    /**
+     * BRD_009
+     */
+    @When("I restore cards from archived items")
+    public void restoreCardFromArchivedItems() {
+        board.restoreCards();
+    }
+    
+    /**
+     * BRD_010
+     */
+    @When("I restore lists from archived items")
+    public void restoreListsFromArchived() {
+        board.restoreLists();
+    }
+    
 }

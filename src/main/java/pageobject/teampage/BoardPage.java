@@ -2,27 +2,20 @@ package pageobject.teampage;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import pageobject.BasePage;
-
-import java.lang.reflect.InvocationTargetException;
+import testdata.BoardData;
 
 public class BoardPage extends BasePage {
+    private final BoardData data;
+    
     public BoardPage(WebDriver driver) {
         super(driver);
+        data = new BoardData();
     }
     
     @FindBy(xpath = "//div[@class='BreadcrumbContainer_separateRoute__26-Ut']/span")
     private WebElement verifyBoard;
-    
-    /**
-     * Draggable Element
-     */
-    @FindBy(xpath = "//div[@class='ListContainer_ListContainer__outerList__1PG0-']//div[@class='OverlayButton_box__2jFLd']//div[@class='OverlayButton_box__2jFLd']//div[@class='OverlayButton_box__2jFLd']/div[contains(.,'dfgdfgfd')]")
-    private WebElement drag;
-    @FindBy(xpath = "//div[@class='ListContainer_ListContainer__outerList__1PG0-']//div[@class='OverlayButton_box__2jFLd']//div[@class='OverlayButton_box__2jFLd']/div[contains(.,'ambil ini Card Dwiki2 asdsadas')]")
-    private WebElement drop;
     
     /**
      * Button Element
@@ -47,6 +40,14 @@ public class BoardPage extends BasePage {
     private WebElement buttonSetListBlocked;
     @FindBy(xpath = "(//div[@class='ListCard_ListContainer__listCardsSection__3GBpr']/div/div/div/div[1])[last()]")
     private WebElement buttonLastCard;
+    @FindBy(xpath = "//div[@class='GlobalActionButton_outlinedContainer__DLFAv'][2]")
+    private WebElement buttonArchivedItems;
+    @FindBy(className = "ArchivedItemsCards_actionSection__3cfg2")
+    private WebElement buttonRestoreCard;
+    @FindBy(className = "btn-dark")
+    private WebElement buttonSwitchInArchived;
+    @FindBy(className = "btn-light")
+    private WebElement buttonRestoreList;
     
     /**
      * Input Element
@@ -65,6 +66,14 @@ public class BoardPage extends BasePage {
     private WebElement getLastCardName;
     @FindBy(css = ".MuiTooltip-tooltip")
     private WebElement getCompletedIconText;
+    
+    public String expectedListName() {
+        return data.getListName();
+    }
+    
+    public String expectedCardName() {
+        return data.getCardName();
+    }
     
     public String getKanbanBoard() {
         return getTextElement(verifyBoard);
@@ -86,35 +95,32 @@ public class BoardPage extends BasePage {
     /**
      * BRD_001
      */
-    public void addNewList(String listName) {
+    public void addNewList() {
         clickElement(buttonAddList);
-        setTextElement(inputListName, listName);
+        setTextElement(inputListName, expectedListName());
         clickElement(buttonAddList);
     }
-    
     
     /**
      * BRD_003
      */
-    public void addCard(String cardName) {
+    public void addCard() {
         clickElement(buttonAddCard);
-        setTextElement(inputCardName, cardName);
+        setTextElement(inputCardName, expectedCardName());
+        clickElement(buttonAddList);
+    }
+    
+    /**
+     * BRD_004
+     */
+    public void addCardEmptyName() {
+        clickElement(buttonAddCard);
+        setTextElement(inputCardName, "");
         clickElement(buttonAddList);
     }
     
     /**
      * BRD_005
-     */
-    public void dragAndDropList() throws InterruptedException {
-        waitVisibilityElement(drag);
-        Thread.sleep(2000);
-        
-        Actions action = new Actions(driver);
-        action.clickAndHold(drag).moveToElement(drop).release().build().perform();
-    }
-    
-    /**
-     * BRD_007
      */
     public void setListAsComplete() {
         clickElement(buttonOptionList);
@@ -122,7 +128,7 @@ public class BoardPage extends BasePage {
     }
     
     /**
-     * BRD_008
+     * BRD_006
      */
     public void setListBlocked() {
         clickElement(buttonChangeListIcon);
@@ -130,7 +136,7 @@ public class BoardPage extends BasePage {
     }
     
     /**
-     * BRD_012
+     * BRD_007
      */
     public void archiveCard() {
         clickElement(buttonLastCard);
@@ -138,10 +144,29 @@ public class BoardPage extends BasePage {
     }
     
     /**
-     * BRD_013
+     * BRD_008
      */
     public void archiveList() {
         clickElement(buttonOptionList);
         clickElement(buttonArchiveList);
+    }
+    
+    /**
+     * BRD_009
+     */
+    public void restoreCards() {
+        clickElement(buttonArchivedItems);
+        setTextElement(inputCardName, expectedCardName());
+        clickElement(buttonRestoreCard);
+    }
+    
+    /**
+     * BRD_010
+     */
+    public void restoreLists() {
+        clickElement(buttonArchivedItems);
+        setTextElement(inputCardName, expectedListName());
+        clickElement(buttonSwitchInArchived);
+        clickElement(buttonRestoreList);
     }
 }

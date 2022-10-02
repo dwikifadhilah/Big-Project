@@ -1,11 +1,9 @@
 package pageobject.teampage;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobject.BasePage;
 import testdata.BlastData;
 
@@ -122,6 +120,10 @@ public class BlastPage extends BasePage {
     private WebElement getDateAccessBlast;
     @FindBy(xpath = "//div[@class='PostBlastPage_archivedSection__3cJxy']//h1")
     private WebElement getArchiveMessage;
+    @FindBy(xpath = "//div[@class='fr-element fr-view']")
+    private WebElement imageInCommentAlreadyLoad;
+    @FindBy(xpath = "//div[@class='fr-element fr-view']/p/a")
+    private WebElement fileInCommentAlreadyLoad;
     
     public String setCheers() {
         return blastData.getCheers();
@@ -305,15 +307,16 @@ public class BlastPage extends BasePage {
             clickElement(buttonInsertFile);
             inputFileComment.sendKeys("D:\\file.zip");
             
-            Thread.sleep(3000);
+            waitVisibilityElement(fileInCommentAlreadyLoad);
             clickElement(buttonPostComment);
             
         } else if (text.equalsIgnoreCase("images")) {
             
             clickElement(buttonInsertImages);
-            inputImagesComment.sendKeys("D:\\images.png");
+            inputImagesComment.sendKeys("D:\\images.jpg");
             
-            Thread.sleep(7000);
+            Thread.sleep(2000);
+            waitUntilEditable(imageInCommentAlreadyLoad);
             clickElement(buttonPostComment);
             
         } else if (text.equalsIgnoreCase("1 GB file size")) {
