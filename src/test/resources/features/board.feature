@@ -69,3 +69,90 @@ Feature: Board
     Given I already in board
     When I restore lists from archived items
     Then Should see popup message "Unarchiving list with cards is success"
+
+  @BRD_014
+  Scenario: Verify user can add member on card
+    Given I already in board
+    When I Add members on card
+    Then Should see popup message "Toggle members successful"
+    And Successfully added members
+
+  @BRD_015
+  Scenario: Verify user can add attachments on card
+    Given I already in board
+    When I Add attachment on card
+    Then Should see popup message "Upload attachments is success"
+    And Successfully added attachment "images.jpg"
+
+  @BRD_016
+  Scenario: Verify user can add notes on card
+    Given I already in board
+    When I Add notes on card
+    Then Should see popup message "Update card is success"
+    And Successfully added notes on card
+
+  @BRD_017
+  Scenario: Verify user can create new labels on card
+    Given I already in board
+    When I create new labels
+    Then Should see popup message "Creating label for this board is success"
+    And Successfully created new labels on card
+
+  @BRD_018
+  Scenario Outline: Verify user can't create new labels without input name and color
+    Given I already in board
+    When I create new labels using empty "<data>"
+    Then Should see popup message "<message>"
+    Examples:
+      | data  | message                     |
+      | name  | Label name cannot be empty! |
+      | color | Please select a color!      |
+
+  @BRD_019
+  Scenario: Verify user can comment on card
+    Given I already in board
+    When I comment on card
+    Then Should see popup message "Create comment is success"
+    And Success commented on card
+
+  @BRD_020
+  Scenario: Verify user can sort list from A to Z
+    Given I already in board
+    When I sort list from A to Z
+    Then Success sorted list from A to Z
+
+  @BRD_021
+  Scenario: Verify user can sort list from Z to A
+    Given I already in board
+    When I sort list from Z to A
+    Then Success sorted list from Z to A
+
+  @BRD_022
+  Scenario: Verify user can sort list by nearest due date
+    Given I already in board
+    When I sort list by nearest due date
+    Then Success sorted list by nearest due date
+
+  @BRD_023
+  Scenario: Verify user can sort list by furthest due date
+    Given I already in board
+    When I sort list by furthest due date
+    Then Success sorted list by furthest due date
+
+  @BRD_024
+  Scenario: Verify user can sort list by nearest created date
+    Given I already in board
+    When I sort list by nearest created date
+    Then Success sorted list by nearest created date
+
+  @BRD_025
+  Scenario: Verify user can sort list by furthest created date
+    Given I already in board
+    When I sort list by furthest created date
+    Then Success sorted list by furthest created date
+
+  @BRD_026
+  Scenario: Verify user can filter search card by card member name
+  Given I already in board
+    When I filter search card by member name
+    Then Success filtered card by member name

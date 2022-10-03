@@ -2,7 +2,9 @@ package stepdef;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.en_scouse.An;
 import org.testng.Assert;
 import pageobject.teampage.BoardPage;
 import pageobject.teampage.TeamPage;
@@ -36,7 +38,7 @@ public class BoardStep {
      */
     @When("I add list using empty list name")
     public void addNewListEmptyName() {
-        board.addNewList();
+        board.addListEmptyName();
     }
     
     /**
@@ -113,4 +115,89 @@ public class BoardStep {
         board.restoreLists();
     }
     
+    /**
+     * BRD_014
+     */
+    @When("I Add members on card")
+    public void addMembersOnCard() {
+        board.addMembersOnCard();
+    }
+    
+    @And("Successfully added members")
+    public void successAddedMembers() {
+        Assert.assertTrue(board.memberAddedIsDisplayed());
+    }
+    
+    /**
+     * BRD_015
+     */
+    @When("I Add attachment on card")
+    public void addAttachmentOnCard() throws InterruptedException {
+        board.addAttachmentOnCard();
+    }
+    
+    @And("Successfully added attachment {string}")
+    public void successAddedAttachmentOnCard(String fileName) {
+        Assert.assertEquals(board.getAttachFileName(), fileName);
+    }
+    
+    /**
+     * BRD_016
+     */
+    @When("I Add notes on card")
+    public void addNotesOnCard() {
+        board.addNotesOnCard();
+    }
+    
+    @And("Successfully added notes on card")
+    public void successfullyAddedNotesOnCard() {
+        Assert.assertEquals(board.getNotes(), board.expectedNotes());
+    }
+    
+    /**
+     * BRD_017
+     */
+    @When("I create new labels")
+    public void createNewLabels() {
+        board.createNewLabels();
+    }
+    
+    @And("Successfully created new labels on card")
+    public void successCreatedNewLabelsOnCard() {
+        Assert.assertEquals(board.getLabels(), board.expectedLabels());
+    }
+    
+    /**
+     * BRD_018
+     */
+    @When("I create new labels using empty {string}")
+    public void createNewLabelsUsingEmptyData(String data) {
+        board.createNewLabelsUsingEmptyData(data);
+    }
+    
+    /**
+     * BRD_019
+     */
+    @When("I comment on card")
+    public void commentOnCard() {
+        board.commentOnCard();
+    }
+    
+    @And("Success commented on card")
+    public void successCommentedOnCard() throws InterruptedException {
+        Assert.assertEquals(board.getComment(), board.expectedComment());
+    }
+    
+    /**
+     * BRD_020
+     */
+    @When("I sort list from A to Z")
+    public void sortListFromAtoZ() {
+    
+    }
+    
+    @Then("Success sorted list from A to Z")
+    public void successSortedListFromAtoZ() {
+    
+    }
 }
