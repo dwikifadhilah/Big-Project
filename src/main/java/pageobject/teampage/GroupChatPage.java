@@ -37,6 +37,8 @@ public class GroupChatPage extends BasePage {
     private WebElement buttonConfirmDelete;
     @FindBy(xpath = "(//div[@class='Message_attachment__title__2UFxF']/a)[1]")
     private WebElement buttonDownload;
+    @FindBy(xpath = "//div[@class='tribute-container']/ul/li[@data-index='3']")
+    private WebElement selectMentionedMembers;
     
     /**
      * Getter Element
@@ -53,10 +55,18 @@ public class GroupChatPage extends BasePage {
     private WebElement getLastFileTitle;
     @FindBy(xpath = "(//div[@class='Message_name__3m1bn']//h1)[1]")
     private WebElement getLastUserName;
+    @FindBy(xpath = "(//div[@class='Message_name__3m1bn']//h1)[1]")
+    private WebElement getLastDisplayPicture;
     @FindBy(xpath = "(//div/p/a)[1]")
     private WebElement getLastHyperLinkChat;
+    @FindBy(xpath = "(//div/p//a)[1]")
+    private WebElement getLastMentionedMembers;
     @FindBy(xpath = "(//div[@class='DateBox_DateBox__3UL8M DateBox_noClick__249-u'])[1]")
     private WebElement getLastMessageTime;
+    @FindBy(xpath = "//div[@class='SideBarGroupChatSection_header__1a6Fw']/p")
+    private WebElement groupChatSideBar;
+    @FindBy(xpath = "//div[@class='SideBarGroupChatSection_body__2b9V1']/div/div[1]")
+    private WebElement groupChatMembers;
     
     public String urlData() {
         return data.getUrl();
@@ -82,18 +92,29 @@ public class GroupChatPage extends BasePage {
         return getTextElement(getPopUpMessage);
     }
     
+    
     public String getLastDeleteMessage() {
         return getTextElement(getLastDeleteMsg);
     }
+    
+    public String getGroupChatMemberHeader() {
+        return getTextElement(groupChatSideBar);
+    }
+    
     
     public String getLastMessage() throws InterruptedException {
         Thread.sleep(2000);
         return getTextElement(getLastMessage);
     }
     
-    public String getHref() throws InterruptedException {
+    public String getHyperlinkHref() throws InterruptedException {
         Thread.sleep(2000);
         return getLastHyperLinkChat.getAttribute("href");
+    }
+    
+    public String getMentionedHref() throws InterruptedException {
+        Thread.sleep(2000);
+        return getLastMentionedMembers.getAttribute("href");
     }
     
     /**
@@ -128,6 +149,20 @@ public class GroupChatPage extends BasePage {
     /**
      * GC_004
      */
+    public boolean otherDisplayPictureDisplayed() {
+        return isElementDisplayed(getLastDisplayPicture);
+    }
+    
+    /**
+     * GC_005
+     */
+    public boolean listGroupMember() {
+        return isElementDisplayed(groupChatMembers);
+    }
+    
+    /**
+     * GC_006
+     */
     public void uploadFile(String text) {
         By uploadFile = By.xpath("//div[@class='AttachFileContainer_container__3U9Wh']/input[1]");
         waitPresenceOfElement(uploadFile);
@@ -143,16 +178,13 @@ public class GroupChatPage extends BasePage {
             
         } else if (text.equalsIgnoreCase("images")) {
             setTextElement(inputUploadFile,
-                  "D:\\images.png");
+                  "D:\\images.jpg");
             
-        } else if (text.equalsIgnoreCase("zip")) {
-            setTextElement(inputUploadFile,
-                  "D:\\Size 1 GB.zip");
         }
     }
     
     /**
-     * GC_005
+     * GC_007
      */
     public void clickDownload() {
         clickElement(buttonDownload);
@@ -163,7 +195,7 @@ public class GroupChatPage extends BasePage {
     }
     
     /**
-     * GC_006
+     * GC_008
      */
     public GroupChatPage inputEmoji() {
         setTextElement(inputMessage, data.getEmoji());
@@ -171,7 +203,7 @@ public class GroupChatPage extends BasePage {
     }
     
     /**
-     * GC_008
+     * GC_010
      */
     public GroupChatPage sendUrlOrEmail(String type) {
         if (type.equalsIgnoreCase("email")) {
@@ -183,7 +215,16 @@ public class GroupChatPage extends BasePage {
     }
     
     /**
-     * GC_010
+     * GC_011
+     */
+    public void mentionedOtherMembers(){
+        setTextElement(inputMessage, "@");
+        clickElement(selectMentionedMembers);
+        clickElement(buttonSendMessage);
+    }
+    
+    /**
+     * GC_012
      */
     public boolean lastMessageTimeIsDisplayed() {
         return isElementDisplayed(getLastMessageTime);
