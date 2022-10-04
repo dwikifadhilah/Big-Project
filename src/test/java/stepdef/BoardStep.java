@@ -2,9 +2,7 @@ package stepdef;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.en_scouse.An;
 import org.testng.Assert;
 import pageobject.teampage.BoardPage;
 import pageobject.teampage.TeamPage;
@@ -24,12 +22,12 @@ public class BoardStep {
     }
     
     @When("I add new list")
-    public void addNewList() {
+    public void addNewList() throws InterruptedException {
         board.addNewList();
     }
     
     @And("List has been added")
-    public void listHasAdded() {
+    public void listHasAdded() throws InterruptedException {
         Assert.assertEquals(board.getLastListName(), board.expectedListName());
     }
     
@@ -37,7 +35,7 @@ public class BoardStep {
      * BRD_002
      */
     @When("I add list using empty list name")
-    public void addNewListEmptyName() {
+    public void addNewListEmptyName() throws InterruptedException {
         board.addListEmptyName();
     }
     
@@ -45,7 +43,7 @@ public class BoardStep {
      * BRD_003
      */
     @When("I add card in list")
-    public void addCard() {
+    public void addCard() throws InterruptedException {
         board.addCard();
     }
     
@@ -58,7 +56,7 @@ public class BoardStep {
      * BRD_004
      */
     @When("I add card in list using empty name card")
-    public void addCardUsingEmptyName() {
+    public void addCardUsingEmptyName() throws InterruptedException {
         board.addCardEmptyName();
     }
     
@@ -66,7 +64,7 @@ public class BoardStep {
      * BRD_005
      */
     @When("I set the list as complete")
-    public void setListAsComplete() {
+    public void setListAsComplete() throws InterruptedException {
         board.setListAsComplete();
     }
     
@@ -79,7 +77,7 @@ public class BoardStep {
      * BRD_006
      */
     @When("I set the list type as blocked")
-    public void setListTypeAsBlocked() {
+    public void setListTypeAsBlocked() throws InterruptedException {
         board.setListBlocked();
     }
     
@@ -87,31 +85,31 @@ public class BoardStep {
      * BRD_007
      */
     @When("I archive card in board")
-    public void archiveCardInBoard() {
+    public void archiveCardInBoard() throws InterruptedException {
         board.archiveCard();
     }
     
     /**
      * BRD_008
      */
-    @When("I archive list in board")
-    public void archiveListInBoard() {
-        board.archiveList();
+    @When("I restore cards from archived items")
+    public void restoreCardFromArchivedItems() throws InterruptedException {
+        board.restoreCards();
     }
     
     /**
      * BRD_009
      */
-    @When("I restore cards from archived items")
-    public void restoreCardFromArchivedItems() {
-        board.restoreCards();
+    @When("I archive list in board")
+    public void archiveListInBoard() throws InterruptedException {
+        board.archiveList();
     }
     
     /**
      * BRD_010
      */
     @When("I restore lists from archived items")
-    public void restoreListsFromArchived() {
+    public void restoreListsFromArchived() throws InterruptedException {
         board.restoreLists();
     }
     
@@ -119,7 +117,7 @@ public class BoardStep {
      * BRD_014
      */
     @When("I Add members on card")
-    public void addMembersOnCard() {
+    public void addMembersOnCard() throws InterruptedException {
         board.addMembersOnCard();
     }
     
@@ -145,7 +143,7 @@ public class BoardStep {
      * BRD_016
      */
     @When("I Add notes on card")
-    public void addNotesOnCard() {
+    public void addNotesOnCard() throws InterruptedException {
         board.addNotesOnCard();
     }
     
@@ -158,7 +156,7 @@ public class BoardStep {
      * BRD_017
      */
     @When("I create new labels")
-    public void createNewLabels() {
+    public void createNewLabels() throws InterruptedException {
         board.createNewLabels();
     }
     
@@ -171,7 +169,7 @@ public class BoardStep {
      * BRD_018
      */
     @When("I create new labels using empty {string}")
-    public void createNewLabelsUsingEmptyData(String data) {
+    public void createNewLabelsUsingEmptyData(String data) throws InterruptedException {
         board.createNewLabelsUsingEmptyData(data);
     }
     
@@ -179,25 +177,12 @@ public class BoardStep {
      * BRD_019
      */
     @When("I comment on card")
-    public void commentOnCard() {
+    public void commentOnCard() throws InterruptedException {
         board.commentOnCard();
     }
     
     @And("Success commented on card")
     public void successCommentedOnCard() throws InterruptedException {
         Assert.assertEquals(board.getComment(), board.expectedComment());
-    }
-    
-    /**
-     * BRD_020
-     */
-    @When("I sort list from A to Z")
-    public void sortListFromAtoZ() {
-    
-    }
-    
-    @Then("Success sorted list from A to Z")
-    public void successSortedListFromAtoZ() {
-    
     }
 }

@@ -53,16 +53,16 @@ Feature: Board
     Then Should see popup message "card has been moved to archived"
 
   @BRD_008
-  Scenario: Verify user can archive list
-    Given I already in board
-    When I archive list in board
-    Then Should see popup message "list has been moved to archived"
-
-  @BRD_009
   Scenario: Verify user can restore cards from archived items
     Given I already in board
     When I restore cards from archived items
     Then Should see popup message "Unarchiving card is success"
+
+  @BRD_009
+  Scenario: Verify user can archive list
+    Given I already in board
+    When I archive list in board
+    Then Should see popup message "list has been moved to archived"
 
   @BRD_010
   Scenario: Verify user can restore lists from archived items
@@ -114,45 +114,3 @@ Feature: Board
     When I comment on card
     Then Should see popup message "Create comment is success"
     And Success commented on card
-
-  @BRD_020
-  Scenario: Verify user can sort list from A to Z
-    Given I already in board
-    When I sort list from A to Z
-    Then Success sorted list from A to Z
-
-  @BRD_021
-  Scenario: Verify user can sort list from Z to A
-    Given I already in board
-    When I sort list from Z to A
-    Then Success sorted list from Z to A
-
-  @BRD_022
-  Scenario: Verify user can sort list by nearest due date
-    Given I already in board
-    When I sort list by nearest due date
-    Then Success sorted list by nearest due date
-
-  @BRD_023
-  Scenario: Verify user can sort list by furthest due date
-    Given I already in board
-    When I sort list by furthest due date
-    Then Success sorted list by furthest due date
-
-  @BRD_024
-  Scenario: Verify user can sort list by nearest created date
-    Given I already in board
-    When I sort list by nearest created date
-    Then Success sorted list by nearest created date
-
-  @BRD_025
-  Scenario: Verify user can sort list by furthest created date
-    Given I already in board
-    When I sort list by furthest created date
-    Then Success sorted list by furthest created date
-
-  @BRD_026
-  Scenario: Verify user can filter search card by card member name
-  Given I already in board
-    When I filter search card by member name
-    Then Success filtered card by member name
