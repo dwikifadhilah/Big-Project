@@ -56,6 +56,12 @@ public class BlastPage extends BasePage {
     private WebElement buttonSaveEditComment;
     @FindBy(xpath = "(//a[@class='LinkNoDecor_Link__3DEkL'])[1]")
     private WebElement buttonReplyCommentBlast;
+    @FindBy(xpath = "//button[.='Emoticons']")
+    private WebElement buttonInsertEmoticons;
+    @FindBy(xpath = "//button[.='Insert Link']")
+    private WebElement buttonInsertLink;
+    @FindBy(css = ".fr-submit")
+    private WebElement buttonSubmitLink;
     @FindBy(xpath = "//button[.='More Rich']")
     private WebElement buttonMoreRich;
     @FindBy(xpath = "//button[.='Insert Image']/*[name()='svg']")
@@ -70,6 +76,10 @@ public class BlastPage extends BasePage {
     private WebElement selectDueDateManually;
     @FindBy(className = "SubAction_container__ejtbG")
     private WebElement overlayButton;
+    @FindBy(css = ".Main_iconDanger__LRdQD")
+    private WebElement buttonDeleteComment;
+    @FindBy(css = ".CheersItem_deleteIcon__3IWPQ")
+    private WebElement buttonDeleteCheers;
     
     /**
      * Input Element
@@ -90,6 +100,12 @@ public class BlastPage extends BasePage {
     private WebElement inputFileComment;
     @FindBy(xpath = "//input[@class='MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd css-mnn31']")
     private WebElement inputDueDate;
+    @FindBy(name = "href")
+    private WebElement inputURL;
+    @FindBy(name = "text")
+    private WebElement inputTextURL;
+    @FindBy(xpath = "//span[11]")
+    private WebElement selectEmoticons;
     
     /**
      * Getter Element
@@ -108,7 +124,7 @@ public class BlastPage extends BasePage {
     private WebElement getEditedBlastTitle;
     @FindBy(xpath = "(//div[@class='CheersItem_content__3kzfx']/p)[last()]")
     private WebElement getLastCheers;
-    @FindBy(xpath = "(//div[@class='fr-view']/p)[1]")
+    @FindBy(xpath = "(//div[@class='fr-view']/p)[2]")
     private WebElement getLastComment;
     @FindBy(xpath = "(//div[@class='fr-view']/p)[2]")
     private WebElement getLastReply;
@@ -124,6 +140,10 @@ public class BlastPage extends BasePage {
     private WebElement imageInCommentAlreadyLoad;
     @FindBy(xpath = "//div[@class='fr-element fr-view']/p/a")
     private WebElement fileInCommentAlreadyLoad;
+    @FindBy(xpath = "//div[@class='fr-view']/p/a")
+    private WebElement getHrefLinkDescBlast;
+    @FindBy(xpath = "(//div[@class='fr-view']//span)[1]")
+    private WebElement getEmoticons;
     
     public String setCheers() {
         return blastData.getCheers();
@@ -131,6 +151,10 @@ public class BlastPage extends BasePage {
     
     public String setComment() {
         return blastData.getComment();
+    }
+    
+    public String setLinkDesc() {
+        return blastData.getLinkDesc();
     }
     
     public String setDescBlast() {
@@ -186,6 +210,11 @@ public class BlastPage extends BasePage {
         return getTextElement(getLastReply);
     }
     
+    public String getLinkHref() throws InterruptedException {
+        Thread.sleep(1500);
+        return getHrefLinkDescBlast.getAttribute("href");
+    }
+    
     /**
      * BLS_001
      */
@@ -232,17 +261,37 @@ public class BlastPage extends BasePage {
     /**
      * BLS_005
      */
-    public void editBlastUsingEmptyTitle() {
+    public void insertLinkBlastDesc() {
         clickElement(selectLastBlast);
         clickElement(buttonOptionBlast);
         clickElement(buttonEdit);
-        setTextElement(inputEditBlastTitle, "");
-        setTextElement(inputBlastDesc, "");
+        clickElement(buttonInsertLink);
+        
+        setTextElement(inputURL, setLinkDesc());
+        setTextElement(inputTextURL, "Insert Link");
+        clickElement(buttonSubmitLink);
         clickElement(buttonSaveEditBlast);
     }
     
     /**
      * BLS_006
+     */
+    public void insertEmoticonsBlastDesc() {
+        clickElement(selectLastBlast);
+        clickElement(buttonOptionBlast);
+        clickElement(buttonEdit);
+        clickElement(buttonInsertEmoticons);
+        clickElement(selectEmoticons);
+        clickElement(buttonSaveEditBlast);
+    }
+    
+    public boolean isEmoticonsDisplayed() throws InterruptedException {
+        Thread.sleep(1000);
+        return isElementDisplayed(getEmoticons);
+    }
+    
+    /**
+     * BLS_007
      */
     public void sendCheers() {
         clickElement(selectLastBlast);
@@ -252,7 +301,7 @@ public class BlastPage extends BasePage {
     }
     
     /**
-     * BLS_007
+     * BLS_008
      */
     public void sendEmptyCheers() {
         clickElement(selectLastBlast);
@@ -262,7 +311,16 @@ public class BlastPage extends BasePage {
     }
     
     /**
-     * BLS_008
+     * BLS_009
+     */
+    public void deleteCheers() {
+        clickElement(selectLastBlast);
+        clickElement(getLastCheers);
+        clickElement(buttonDeleteCheers);
+    }
+    
+    /**
+     * BLS_010
      */
     public void commentOnBlast() {
         clickElement(selectLastBlast);
@@ -272,7 +330,7 @@ public class BlastPage extends BasePage {
     }
     
     /**
-     * BLS_009
+     * BLS_011
      */
     public void editCommentOnBlast() {
         clickElement(selectLastBlast);
@@ -283,7 +341,7 @@ public class BlastPage extends BasePage {
     }
     
     /**
-     * BLS_010
+     * BLS_012
      */
     public void replyCommentOnBlast() {
         clickElement(selectLastBlast);
@@ -294,7 +352,7 @@ public class BlastPage extends BasePage {
     }
     
     /**
-     * BLS_011
+     * BLS_013
      */
     public void uploadFile(String text) throws InterruptedException {
         
@@ -338,7 +396,7 @@ public class BlastPage extends BasePage {
     }
     
     /**
-     * BLS_012
+     * BLS_014
      */
     public void editDueDateManually(String dueDate) {
         clickElement(selectLastBlast);
@@ -355,7 +413,7 @@ public class BlastPage extends BasePage {
     }
     
     /**
-     * BLS_013
+     * BLS_015
      */
     public void setBlastAsComplete() {
         clickElement(selectLastBlast);
@@ -371,7 +429,18 @@ public class BlastPage extends BasePage {
     }
     
     /**
-     * BLS_014
+     * BLS_016
+     */
+    public void deleteCommentOnBlast() {
+        clickElement(selectLastBlast);
+        clickElement(buttonOptionComment);
+        clickElement(buttonArchive);
+        clickElement(buttonDeleteComment);
+        
+    }
+    
+    /**
+     * BLS_017
      */
     public void archiveBlastPost() {
         clickElement(selectLastBlast);
