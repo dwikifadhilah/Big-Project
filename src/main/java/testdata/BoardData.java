@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 public class BoardData {
     Faker faker = new Faker();
-    private final String listName = "Check-Check";
-    private final String cardName = "Dwk test";
+    private final String listName = "list ke sekian";
+    private final String cardName = "card ke sekian";
     private final String memberName = "dwiki";
     private final String filePath = "D:\\images.jpg";
     private final String notes = faker.food().fruit();

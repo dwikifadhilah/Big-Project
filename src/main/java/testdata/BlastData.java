@@ -10,4 +10,5 @@ public class BlastData {
     private final String blastDesc = faker.food().ingredient();
     private final String cheers = faker.animal().name();
     private final String comment = faker.cat().breed();
+    private final String linkDesc = faker.internet().url();
 }
