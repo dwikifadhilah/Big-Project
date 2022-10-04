@@ -58,7 +58,13 @@ public class BasePage {
         return webElement.getText();
     }
     
-    public void waitUntilEditable(WebElement webElement){
+    public void waitUntilEditable(WebElement webElement) {
         wait.until(ExpectedConditions.attributeContains(webElement, "contenteditable", "true"));
+    }
+    
+    public void scrollHorizontalToEndPage() throws InterruptedException {
+        Thread.sleep(1500);
+        ((JavascriptExecutor) driver)
+              .executeScript("window.scrollBy(50000,0)");
     }
 }
