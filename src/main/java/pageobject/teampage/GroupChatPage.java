@@ -75,6 +75,9 @@ public class GroupChatPage extends BasePage {
     public String emailData() {
         return data.getEmail();
     }
+    public String emojiData() {
+        return data.getEmoji();
+    }
     
     public String messageData() {
         return data.getMessage();
@@ -164,8 +167,7 @@ public class GroupChatPage extends BasePage {
      * GC_006
      */
     public void uploadFile(String text) {
-        By uploadFile = By.xpath("//div[@class='AttachFileContainer_container__3U9Wh']/input[1]");
-        waitPresenceOfElement(uploadFile);
+        waitPresenceOfElement(By.xpath("//div[@class='AttachFileContainer_container__3U9Wh']/input[1]"));
         ((JavascriptExecutor) driver)
               .executeScript(
                     "document.evaluate('//div[2]/div/div/input', document, null, " +
@@ -179,7 +181,6 @@ public class GroupChatPage extends BasePage {
         } else if (text.equalsIgnoreCase("images")) {
             setTextElement(inputUploadFile,
                   "D:\\images.jpg");
-            
         }
     }
     
@@ -198,7 +199,7 @@ public class GroupChatPage extends BasePage {
      * GC_008
      */
     public GroupChatPage inputEmoji() {
-        setTextElement(inputMessage, data.getEmoji());
+        setTextElement(inputMessage, emojiData());
         return this;
     }
     
@@ -217,7 +218,7 @@ public class GroupChatPage extends BasePage {
     /**
      * GC_011
      */
-    public void mentionedOtherMembers(){
+    public void mentionedOtherMembers() {
         setTextElement(inputMessage, "@");
         clickElement(selectMentionedMembers);
         clickElement(buttonSendMessage);

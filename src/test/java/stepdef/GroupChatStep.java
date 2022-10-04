@@ -7,13 +7,11 @@ import io.cucumber.java.en.When;
 import org.testng.Assert;
 import pageobject.teampage.GroupChatPage;
 import pageobject.teampage.TeamPage;
-import testdata.MessageData;
 
 import static stepdef.Hook.driver;
 
 public class GroupChatStep {
     private final GroupChatPage groupChat = new GroupChatPage(driver);
-    private final MessageData data = new MessageData();
     
     /**
      * GC_001
@@ -98,6 +96,7 @@ public class GroupChatStep {
     
     @And("the attach {string} has been sent in the chat")
     public void successAttachFile(String attach) {
+        
         if (attach.equalsIgnoreCase("files")) {
             Assert.assertEquals(groupChat.getFileTitle(), "file.zip");
         } else {
@@ -130,7 +129,7 @@ public class GroupChatStep {
     
     @Then("Successfully sent emoji")
     public void successSentEmoji() throws InterruptedException {
-        Assert.assertEquals(groupChat.getLastMessage(), data.getEmoji());
+        Assert.assertEquals(groupChat.getLastMessage(), groupChat.emojiData());
     }
     
     /**
@@ -158,6 +157,7 @@ public class GroupChatStep {
     
     @Then("I have to see hyperlink URL and Email {string} can be shared in group chat")
     public void successSendUrlOrEmail(String type) throws InterruptedException {
+        
         if (type.equalsIgnoreCase("email")) {
             Assert.assertEquals(groupChat.getHyperlinkHref(), "mailto:" + groupChat.emailData().trim());
         } else {
