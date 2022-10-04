@@ -35,4 +35,3 @@ public class TeamPage extends BasePage {
         return getTextElement(verifyTeamPage);
     }
 }
-
