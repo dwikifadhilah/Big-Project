@@ -58,7 +58,7 @@ public class BasePage {
         return webElement.getText();
     }
     
-    public void waitUntilEditable(WebElement webElement) {
+    protected void waitUntilEditable(WebElement webElement) {
         wait.until(ExpectedConditions.attributeContains(webElement, "contenteditable", "true"));
     }
     
