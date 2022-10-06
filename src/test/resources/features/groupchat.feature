@@ -34,7 +34,7 @@ Feature: Group Chat
   @GC_005
   Scenario: Verify that all group chat members are displayed in the right column
     Given I already in group chat
-    When I see group chat member "Group Chat Members (7)"
+    When I see group chat member "Group Chat Members (2)"
     Then I should be able to see all group chat members are displayed
 
   @GC_006
