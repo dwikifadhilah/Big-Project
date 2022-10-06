@@ -37,7 +37,7 @@ public class GroupChatPage extends BasePage {
     private WebElement buttonConfirmDelete;
     @FindBy(xpath = "(//div[@class='Message_attachment__title__2UFxF']/a)[1]")
     private WebElement buttonDownload;
-    @FindBy(xpath = "//div[@class='tribute-container']/ul/li[@data-index='3']")
+    @FindBy(xpath = "//div[@class='tribute-container']/ul/li[@data-index='1']")
     private WebElement selectMentionedMembers;
     
     /**
