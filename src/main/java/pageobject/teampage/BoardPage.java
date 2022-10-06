@@ -161,8 +161,8 @@ public class BoardPage extends BasePage {
      * BRD_001
      */
     public void addNewList() throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonAddList);
         setTextElement(inputListName, expectedListName());
@@ -173,8 +173,8 @@ public class BoardPage extends BasePage {
      * BRD_002
      */
     public void addListEmptyName() throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonAddList);
         setTextElement(inputListName, "");
@@ -185,8 +185,8 @@ public class BoardPage extends BasePage {
      * BRD_003
      */
     public void addCard() throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonAddCard);
         setTextElement(inputCardName, expectedCardName());
@@ -197,8 +197,8 @@ public class BoardPage extends BasePage {
      * BRD_004
      */
     public void addCardEmptyName() throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonAddCard);
         setTextElement(inputCardName, "");
@@ -209,8 +209,8 @@ public class BoardPage extends BasePage {
      * BRD_005
      */
     public void setListAsComplete() throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonOptionList);
         clickElement(buttonSetListAsComplete);
@@ -220,8 +220,8 @@ public class BoardPage extends BasePage {
      * BRD_006
      */
     public void setListBlocked() throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonChangeListIcon);
         clickElement(buttonSetListBlocked);
@@ -231,8 +231,8 @@ public class BoardPage extends BasePage {
      * BRD_007
      */
     public void archiveCard() throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonLastCard);
         clickElement(buttonArchiveCard);
@@ -242,8 +242,8 @@ public class BoardPage extends BasePage {
      * BRD_008
      */
     public void restoreCards() throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonArchivedItems);
         setTextElement(inputCardName, expectedCardName());
@@ -254,8 +254,8 @@ public class BoardPage extends BasePage {
      * BRD_009
      */
     public void archiveList() throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonOptionList);
         clickElement(buttonArchiveList);
@@ -265,8 +265,8 @@ public class BoardPage extends BasePage {
      * BRD_010
      */
     public void restoreLists() throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonArchivedItems);
         setTextElement(inputCardName, expectedListName());
@@ -278,8 +278,8 @@ public class BoardPage extends BasePage {
      * BRD_014
      */
     public void addMembersOnCard() throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonLastCard);
         clickElement(buttonMembers);
@@ -297,8 +297,8 @@ public class BoardPage extends BasePage {
      * BRD_015
      */
     public void addAttachmentOnCard() throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonLastCard);
         Thread.sleep(1500);
@@ -314,8 +314,8 @@ public class BoardPage extends BasePage {
      * BRD_016
      */
     public void addNotesOnCard() throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonLastCard);
         clickElement(buttonNotes);
@@ -327,8 +327,8 @@ public class BoardPage extends BasePage {
      * BRD_017
      */
     public void createNewLabels() throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonLastCard);
         clickElement(buttonLabels);
@@ -342,8 +342,8 @@ public class BoardPage extends BasePage {
      * BRD_018
      */
     public void createNewLabelsUsingEmptyData(String data) throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonLastCard);
         clickElement(buttonLabels);
@@ -361,8 +361,8 @@ public class BoardPage extends BasePage {
      * BRD_019
      */
     public void commentOnCard() throws InterruptedException {
-        waitVisibilityElement(verifyBoard);
-        scrollHorizontalToEndPage();
+        waitToBeClickable(buttonAddList);
+        scrollHorizontalToEndPage(buttonAddList);
         
         clickElement(buttonLastCard);
         clickElement(buttonComment);
