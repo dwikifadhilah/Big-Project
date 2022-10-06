@@ -13,7 +13,7 @@ public class BasePage {
     
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
     
@@ -62,8 +62,10 @@ public class BasePage {
         wait.until(ExpectedConditions.attributeContains(webElement, "contenteditable", "true"));
     }
     
-    public void scrollHorizontalToEndPage() throws InterruptedException {
-        Thread.sleep(1500);
+    public void scrollHorizontalToEndPage(WebElement webElement) throws InterruptedException {
+        isElementDisplayed(webElement);
+        webElement.isEnabled();
+        Thread.sleep(1000);
         ((JavascriptExecutor) driver)
               .executeScript("window.scrollBy(50000,0)");
     }
