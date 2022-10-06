@@ -26,8 +26,6 @@ public class BlastPage extends BasePage {
     private WebElement buttonCreateBlast;
     @FindBy(xpath = "//div[@class='CreateBlastPage_actionSection__11uaD']/button")
     private WebElement buttonPublishBlast;
-    @FindBy(xpath = "//div[@class='CreateBlastPage_actionSection__cancel__3b0TR']/button")
-    private WebElement buttonCancelCreateBlast;
     @FindBy(xpath = "(//div[@class='Post_link__3u8eF'])[1]")
     private WebElement selectLastBlast;
     @FindBy(className = "More_container__2VGML")
