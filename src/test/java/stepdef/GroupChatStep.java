@@ -176,7 +176,7 @@ public class GroupChatStep {
     @Then("Successfully mentioned other members")
     public void successMentionedOtherMembers() throws InterruptedException {
         Assert.assertEquals(groupChat.getMentionedHref(),
-              "https://staging.cicle.app/companies/6337c5a91fa533a20d58dff9/profiles/62f7209773b7eefe3ea7aa38");
+              "https://staging.cicle.app/companies/634395ccb80a4fb9f6ce8328/profiles/632d9255716e0b0954efa400");
     }
     
     /**
